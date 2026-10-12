@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML Report — Activities 2 and 3 | Task 2 Big Data</title>
+<style>
+  :root {
+    --ground: #F3F8FC;
+    --card: #FFFFFF;
+    --ink: #1B2A33;
+    --muted: #5B6F7A;
+    --line: #D7E6EF;
+    --orange: #E8812E;
+    --orange-deep: #BC570F;
+    --sky: #2E90C4;
+    --sky-deep: #1C6B94;
+    --sky-soft: #E4F1F9;
+    --sql: var(--sky-deep);
+    --nosql: var(--orange-deep);
+    --code-bg: #13242F;
+    --code-ink: #E9F2F7;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px 96px; }
+
+  /* Cover */
+  header.cover {
+    border-top: 6px solid var(--orange);
+    background: linear-gradient(180deg, #FFF 0%, #FBFDFE 100%);
+    margin: 0 -24px 48px;
+    padding: 56px 24px 44px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cover-inner { max-width: 860px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange-deep); font-weight: 700; margin: 0 0 14px;
+  }
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-weight: 700; font-size: 2.4rem; line-height: 1.12;
+    margin: 0 0 18px; text-wrap: balance; letter-spacing: -0.01em;
+  }
+  .lede { color: var(--muted); font-size: 1.08rem; max-width: 60ch; margin: 0 0 28px; }
+  .meta {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 18px 28px; border-top: 1px solid var(--line); padding-top: 22px;
+  }
+  .meta dt { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 3px; }
+  .meta dd { margin: 0; font-weight: 600; font-size: 0.98rem; }
+
+  /* Sections */
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 40px; margin: 0 0 32px; }
+  .sec-label { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; margin: 0 0 8px; }
+  h2 {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 1.75rem; line-height: 1.2; margin: 0 0 22px; text-wrap: balance;
+  }
+  h3 { font-size: 1.12rem; margin: 36px 0 12px; letter-spacing: -0.005em; }
+  h3:first-of-type { margin-top: 8px; }
+  p { margin: 0 0 16px; }
+  .wrap p:last-child { margin-bottom: 0; }
+
+  .callout {
+    border-left: 4px solid var(--sky); background: var(--sky-soft);
+    padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 0 0 20px; color: #134a66;
+    font-size: 0.96rem;
+  }
+
+  /* Paradigm chips */
+  .chip { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 999px; vertical-align: middle; }
+  .chip.sql { background: rgba(46,144,196,0.15); color: var(--sky-deep); }
+  .chip.nosql { background: rgba(232,129,46,0.16); color: var(--orange-deep); }
+
+  /* Code */
+  figure.code { margin: 0 0 22px; border-radius: 8px; overflow: hidden; border: 1px solid #0b1920; }
+  figure.code figcaption {
+    background: #0e1c25; color: #9fb6c4; font-family: Consolas, "SF Mono", ui-monospace, monospace;
+    font-size: 12px; padding: 8px 14px; letter-spacing: 0.03em; border-bottom: 1px solid #0a1116;
+  }
+  pre { margin: 0; background: var(--code-bg); color: var(--code-ink); padding: 18px; overflow-x: auto;
+    font-family: Consolas, "SF Mono", ui-monospace, monospace; font-size: 13.5px; line-height: 1.6; }
+  pre .k { color: #74bbe3; } pre .s { color: #e8ac77; } pre .c { color: #6d8694; font-style: italic; }
+  pre .n { color: #abcfe0; }
+
+  /* Tables */
+  .table-scroll { overflow-x: auto; margin: 0 0 22px; border: 1px solid var(--line); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+  caption { text-align: left; font-size: 0.86rem; color: var(--muted); padding: 0 0 8px; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  thead th { background: var(--sky-soft); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--sky-deep); }
+  tbody tr:nth-child(even) td { background: #FAFCFE; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.num { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 0 0 8px; }
+  .two-col h3 { margin-top: 0; }
+  .para-card { border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+  .para-card.sql { border-top: 3px solid var(--sky); background: #FAFDFE; }
+  .para-card.nosql { border-top: 3px solid var(--orange); background: #FFFCF8; }
+
+  footer { color: var(--muted); font-size: 0.86rem; text-align: center; padding-top: 12px; }
+
+  a { color: var(--orange-deep); }
+  :focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+  @media (max-width: 680px) {
+    body { font-size: 16px; }
+    section { padding: 26px 20px; }
+    h1 { font-size: 1.9rem; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header class="cover">
+  <div class="cover-inner">
+    <p class="eyebrow">Task 2 · Data Storage and Preparation</p>
+    <h1>Report on Activities 2 and 3</h1>
+    <p class="lede">Application of basic NoSQL principles and creation of SQL and NoSQL databases, with the code, the data, and the explanation of each model.</p>
+    <dl class="meta">
+      <div><dt>Course</dt><dd>Big Data Project Management and Design Models</dd></div>
+      <div><dt>Code</dt><dd>203008080-10</dd></div>
+      <div><dt>Student</dt><dd>Diego Alexander Leon Torres</dd></div>
+      <div><dt>Date</dt><dd>October 2026</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ACTIVITY 2 -->
+  <section>
+    <p class="sec-label" style="color:var(--nosql)">Activity 2 <span class="chip nosql">NoSQL</span></p>
+    <h2>Application of basic NoSQL principles</h2>
+
+    <h3>Objective</h3>
+    <p>This activity aims to understand the structure of document-based NoSQL data using a Python dictionary as an equivalent representation of JSON, building the three employees as documents that are each extended with the Seniority (years at the company) and Country (country of origin) fields, so that the resulting set is finally written to the employees.json file using <code>json.dump()</code>.</p>
+
+    <h3>The document model</h3>
+    <p>Each employee is modeled as a document with its own fields, including a <strong>nested</strong> field (<code>Information</code>, with <code>Subject</code> and <code>Grade</code>), which illustrates the central feature of the document-based NoSQL model, since its structure is flexible and can contain objects within objects unlike a relational table of flat columns, so that once <code>Seniority</code> and <code>Country</code> are added the set is serialized into <code>employees.json</code> with <code>json.dump()</code> using <code>with open(...)</code>.</p>
+
+    <h3>Code (Python)</h3>
+    <figure class="code">
+      <figcaption>empleados.py</figcaption>
+<pre><span class="k">import</span> json
+<span class="k">from</span> dataclasses <span class="k">import</span> dataclass, asdict
+<span class="k">from</span> pathlib <span class="k">import</span> Path
+
+RUTA_SALIDA = <span class="n">str</span>(Path(__file__).parent / <span class="s">"employees.json"</span>)
+
+
+<span class="n">@dataclass</span>
+<span class="k">class</span> Informacion:
+    Subject: <span class="n">str</span>
+    Grade: <span class="n">str</span>
+
+
+<span class="n">@dataclass</span>
+<span class="k">class</span> Empleado:
+    Firstname: <span class="n">str</span>
+    Age: <span class="n">int</span>
+    Alias: <span class="n">str</span>
+    Information: Informacion
+    Seniority: <span class="n">int</span>
+    Country: <span class="n">str</span>
+
+
+<span class="k">class</span> RepositorioEmpleados:
+    <span class="k">def</span> __init__(self, ruta: <span class="n">str</span>):
+        self._ruta = ruta
+
+    <span class="k">def</span> guardar(self, empleados: <span class="n">list</span>[Empleado]) -> <span class="n">int</span>:
+        documentos = [asdict(empleado) <span class="k">for</span> empleado <span class="k">in</span> empleados]
+        <span class="k">with</span> <span class="n">open</span>(self._ruta, <span class="s">"w"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> archivo:
+            json.dump(documentos, archivo, indent=<span class="s">4</span>, ensure_ascii=<span class="k">False</span>)
+        <span class="k">return</span> <span class="n">len</span>(documentos)
+
+
+empleados = [
+    Empleado(<span class="s">"Santiago"</span>, 26, <span class="s">"Developer"</span>, Informacion(<span class="s">"History"</span>, <span class="s">"B"</span>), 2, <span class="s">"Colombia"</span>),
+    Empleado(<span class="s">"Mateo"</span>, 45, <span class="s">"Data Engineer"</span>, Informacion(<span class="s">"Physics"</span>, <span class="s">"A"</span>), 10, <span class="s">"USA"</span>),
+    Empleado(<span class="s">"Valentina"</span>, 46, <span class="s">"Data Scientist"</span>, Informacion(<span class="s">"Physics"</span>, <span class="s">"A+"</span>), 7, <span class="s">"Argentina"</span>),
+]
+
+total = RepositorioEmpleados(RUTA_SALIDA).guardar(empleados)
+<span class="n">print</span>(<span class="s">f"Archivo employees.json creado con {total} empleados."</span>)</pre>
+    </figure>
+
+    <h3>Employees and added fields</h3>
+    <div class="table-scroll">
+      <table>
+        <caption>The three documents with the <code>Seniority</code> and <code>Country</code> fields added.</caption>
+        <thead>
+          <tr><th>Firstname</th><th>Age</th><th>Alias</th><th>Subject</th><th>Grade</th><th>Seniority</th><th>Country</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Santiago</td><td class="num">26</td><td>Developer</td><td>History</td><td>B</td><td class="num">2</td><td>Colombia</td></tr>
+          <tr><td>Mateo</td><td class="num">45</td><td>Data Engineer</td><td>Physics</td><td>A</td><td class="num">10</td><td>USA</td></tr>
+          <tr><td>Valentina</td><td class="num">46</td><td>Data Scientist</td><td>Physics</td><td>A+</td><td class="num">7</td><td>Argentina</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Result: employees.json</h3>
+    <figure class="code">
+      <figcaption>employees.json (generated with json.dump)</figcaption>
+<pre>[
+    {
+        <span class="s">"Firstname"</span>: <span class="s">"Santiago"</span>,
+        <span class="s">"Age"</span>: 26,
+        <span class="s">"Alias"</span>: <span class="s">"Developer"</span>,
+        <span class="s">"Information"</span>: { <span class="s">"Subject"</span>: <span class="s">"History"</span>, <span class="s">"Grade"</span>: <span class="s">"B"</span> },
+        <span class="s">"Seniority"</span>: 2,
+        <span class="s">"Country"</span>: <span class="s">"Colombia"</span>
+    },
+    {
+        <span class="s">"Firstname"</span>: <span class="s">"Mateo"</span>,
+        <span class="s">"Age"</span>: 45,
+        <span class="s">"Alias"</span>: <span class="s">"Data Engineer"</span>,
+        <span class="s">"Information"</span>: { <span class="s">"Subject"</span>: <span class="s">"Physics"</span>, <span class="s">"Grade"</span>: <span class="s">"A"</span> },
+        <span class="s">"Seniority"</span>: 10,
+        <span class="s">"Country"</span>: <span class="s">"USA"</span>
+    },
+    {
+        <span class="s">"Firstname"</span>: <span class="s">"Valentina"</span>,
+        <span class="s">"Age"</span>: 46,
+        <span class="s">"Alias"</span>: <span class="s">"Data Scientist"</span>,
+        <span class="s">"Information"</span>: { <span class="s">"Subject"</span>: <span class="s">"Physics"</span>, <span class="s">"Grade"</span>: <span class="s">"A+"</span> },
+        <span class="s">"Seniority"</span>: 7,
+        <span class="s">"Country"</span>: <span class="s">"Argentina"</span>
+    }
+]</pre>
+    </figure>
+  </section>
+
+  <!-- ACTIVITY 3 -->
+  <section>
+    <p class="sec-label" style="color:var(--sql)">Activity 3 <span class="chip sql">SQL</span> <span class="chip nosql">NoSQL</span></p>
+    <h2>Creation of SQL and NoSQL databases</h2>
+
+    <h3>Objective</h3>
+    <p>This activity models the same purchase transaction information in the <strong>two storage paradigms</strong> in order to show their differences, representing it first in a relational database <code>bd_compras</code> with the <code>cliente1_pedidos</code> table and then as a document in <code>cliente2_pedidos.json</code>.</p>
+
+    <p class="callout">The core idea is to show the <strong>same data with a different structure</strong>, since the SQL model organizes it into flat rows and columns while the NoSQL model organizes it into documents with nested objects.</p>
+
+    <h3>SQL model (relational) <span class="chip sql">SQL</span></h3>
+    <figure class="code">
+      <figcaption>comando_sqlrelacional.sql</figcaption>
+<pre><span class="k">CREATE DATABASE</span> bd_compras;
+<span class="k">USE</span> bd_compras;
+
+<span class="k">CREATE TABLE</span> cliente1_pedidos (
+    OrderId            <span class="n">INT PRIMARY KEY</span>,
+    OrderDate          <span class="n">DATE</span>,
+    ProductName        <span class="n">VARCHAR</span>(255),
+    ProductPrice       <span class="n">DECIMAL</span>(10,2),
+    CustomerFirstName  <span class="n">VARCHAR</span>(100),
+    CustomerLastName   <span class="n">VARCHAR</span>(100),
+    CustomerEmail      <span class="n">VARCHAR</span>(150),
+    CustomerCountry    <span class="n">VARCHAR</span>(80),
+    ShippingMode       <span class="n">VARCHAR</span>(50),
+    DeliveryStatus     <span class="n">VARCHAR</span>(50)
+);
+
+<span class="k">INSERT INTO</span> cliente1_pedidos <span class="k">VALUES</span>
+(1, <span class="s">'2026-02-10'</span>, <span class="s">'Laptop Lenovo'</span>, 2500.00, <span class="s">'Julio Eduardo'</span>, <span class="s">'Mejia'</span>, <span class="s">'julio@email.com'</span>, <span class="s">'Colombia'</span>, <span class="s">'Premium'</span>, <span class="s">'Delivered'</span>),
+(2, <span class="s">'2026-03-05'</span>, <span class="s">'Smartphone Samsung'</span>, 3200.00, <span class="s">'Ana'</span>, <span class="s">'Torres'</span>, <span class="s">'ana.torres@mail.com'</span>, <span class="s">'Chile'</span>, <span class="s">'Express'</span>, <span class="s">'In transit'</span>),
+(3, <span class="s">'2026-03-18'</span>, <span class="s">'Monitor LG'</span>, 1200.00, <span class="s">'Carlos'</span>, <span class="s">'Ramirez'</span>, <span class="s">'carlos.ramirez@mail.com'</span>, <span class="s">'Colombia'</span>, <span class="s">'Standard'</span>, <span class="s">'Delivered'</span>),
+(4, <span class="s">'2026-04-02'</span>, <span class="s">'Tablet Apple'</span>, 2800.00, <span class="s">'Valentina'</span>, <span class="s">'Gomez'</span>, <span class="s">'valentina.gomez@mail.com'</span>, <span class="s">'Mexico'</span>, <span class="s">'Premium'</span>, <span class="s">'Pending'</span>);
+
+<span class="k">SELECT</span> * <span class="k">FROM</span> cliente1_pedidos;</pre>
+    </figure>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Result of <code>SELECT * FROM cliente1_pedidos</code>.</caption>
+        <thead>
+          <tr><th>OrderId</th><th>OrderDate</th><th>ProductName</th><th>Price</th><th>Customer</th><th>Country</th><th>Shipping</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">1</td><td>2026-02-10</td><td>Laptop Lenovo</td><td class="num">2500.00</td><td>Julio Eduardo Mejia</td><td>Colombia</td><td>Premium</td><td>Delivered</td></tr>
+          <tr><td class="num">2</td><td>2026-03-05</td><td>Smartphone Samsung</td><td class="num">3200.00</td><td>Ana Torres</td><td>Chile</td><td>Express</td><td>In transit</td></tr>
+          <tr><td class="num">3</td><td>2026-03-18</td><td>Monitor LG</td><td class="num">1200.00</td><td>Carlos Ramirez</td><td>Colombia</td><td>Standard</td><td>Delivered</td></tr>
+          <tr><td class="num">4</td><td>2026-04-02</td><td>Tablet Apple</td><td class="num">2800.00</td><td>Valentina Gomez</td><td>Mexico</td><td>Premium</td><td>Pending</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>NoSQL model (document) <span class="chip nosql">NoSQL</span></h3>
+    <p>The same information is represented in <code>cliente2_pedidos.json</code> with a nested structure in which each order groups the data into <code>Customer</code>, <code>Product</code> and <code>Shipping</code> objects, also including fields that the SQL table does not have (<code>Product.Status</code>, <code>Shipping.Days</code>, <code>Shipping.LateDeliveryRisk</code>), which shows an advantage of the document model by allowing richer and more flexible information to be stored.</p>
+    <figure class="code">
+      <figcaption>cliente2_pedidos.json (first document)</figcaption>
+<pre>{
+    <span class="s">"OrderId"</span>: 1,
+    <span class="s">"OrderDate"</span>: <span class="s">"2026-02-10"</span>,
+    <span class="s">"Customer"</span>: {
+        <span class="s">"FirstName"</span>: <span class="s">"Julio Eduardo"</span>,
+        <span class="s">"LastName"</span>: <span class="s">"Mejia"</span>,
+        <span class="s">"Email"</span>: <span class="s">"julio@email.com"</span>,
+        <span class="s">"Country"</span>: <span class="s">"Colombia"</span>
+    },
+    <span class="s">"Product"</span>: {
+        <span class="s">"Name"</span>: <span class="s">"Laptop Lenovo"</span>,
+        <span class="s">"Price"</span>: 2500.00,
+        <span class="s">"Status"</span>: <span class="s">"Available"</span>
+    },
+    <span class="s">"Shipping"</span>: {
+        <span class="s">"Mode"</span>: <span class="s">"Premium"</span>,
+        <span class="s">"Days"</span>: 2,
+        <span class="s">"DeliveryStatus"</span>: <span class="s">"Delivered"</span>,
+        <span class="s">"LateDeliveryRisk"</span>: <span class="s">"Low"</span>
+    }
+}</pre>
+    </figure>
+
+    <h3>Key difference between the two models</h3>
+    <div class="two-col">
+      <div class="para-card sql">
+        <h3><span class="chip sql">SQL</span> Relational</h3>
+        <p style="margin-bottom:0">The schema is fixed, with flat rows and columns in which each attribute corresponds to a typed column, which makes it ideal for uniform data and for queries with strict relationships and referential integrity.</p>
+      </div>
+      <div class="para-card nosql">
+        <h3><span class="chip nosql">NoSQL</span> Document</h3>
+        <p style="margin-bottom:0">The schema is flexible, with nested objects (<code>Customer</code>, <code>Product</code>, <code>Shipping</code>) that allow additional fields per document without altering a table, which makes it ideal for rich and variable information.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Task 2 — Data Storage and Preparation · Big Data Project Management and Design Models (203008080) · UNAD</p>
+  </footer>
+
+</div>
+</body>
+</html>
